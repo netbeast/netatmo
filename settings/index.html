@@ -1,0 +1,24 @@
+<head>
+  <title>Netatmo Settings</title>
+  <script type="text/javascript">
+    var fs = require('fs-extra')
+    function storeData() {
+      fs.writeJson('./config.json',
+      {
+        client_id: document.forms["client-data"]["client_id"],
+        client_secret: document.forms["client-data"]["client_secret"],
+        username: document.forms["client-data"]["username"],
+        password: document.forms["client-data"]["password"]
+      })
+    }
+  </script>
+</head>
+<body style="width: 100%; height: 300px; background-color: #333;">
+  <form name="client-data">
+    client_id: &nbsp;<input type="text" name="client_id"><br>
+    client_secret: &nbsp;<input type="text" name="client_secret"><br>
+    username:&nbsp;<input type="text" name="username"><br>
+    password:&nbsp;<input type="text" name="password"><br>
+    <button type="button" onclick="storeData()">Click Me!</button>
+ </form>
+</body>
