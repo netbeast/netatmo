@@ -1,6 +1,6 @@
 var request = require('request')
 var netbeast = require('netbeast')
-var Netatmo = require('./src/helper')
+var Netatmo = require('./helper')
 var fs = require('fs-extra')
 
 var auth
