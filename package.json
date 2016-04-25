@@ -4,7 +4,7 @@
   "description": "Netbeast plugin to control netatmo welcome camera",
   "main": "index.js",
   "netbeast": {
-    "bootOnLoad": true,
+    "bootOnLoad": false,
     "type": "plugin",
     "settings": true
   },
