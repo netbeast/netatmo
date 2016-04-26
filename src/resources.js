@@ -9,20 +9,18 @@ var devices = []
 var api
 
 module.exports = function (callback) {
-  fs.readJson('./settings/config.json', function (err, packageObj) {
+  fs.readJson('./src/settings/config.json', function (err, packageObj) {
     if (err) console.trace(err)
     for (var i in packageObj) {
       if (!packageObj[i]) return (new Error('Settings required, go to the plugin settings and enter the data required'))
     }
     api = new Netatmo(packageObj)
-    console.log(api)
 
     var objects = []
 
     // Request to the database
     request.get(API + '?app=netatmo-plugin',
     function (err, resp, body) {
-      console.log(body)
       if (err) return callback(err)
       if (!body) return callback()
 
@@ -39,7 +37,6 @@ module.exports = function (callback) {
     // Implement the device discovery method
     api.getHomeData(function (err, data) {
       if (err) console.trace(err)
-      console.log(data)
 
       data.homes[0].cameras.forEach(function (camera) {
         devices.push(camera)
@@ -47,8 +44,8 @@ module.exports = function (callback) {
         if (indx >= 0) {
           objects.splice(indx, 1)
         } else {
-          netbeast('').create({app: 'netatmo-plugin', hook: '/welcome/' + camera.id})
-          .cathch(function (err) {
+          netbeast('camera').create({app: 'netatmo', hook: '/welcome/' + camera.id})
+          .catch(function (err) {
             return callback(err)
           })
         }

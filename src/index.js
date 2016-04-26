@@ -57,8 +57,8 @@ app.post('/config', function (req, res) {
   } else {
     fs.writeJson('./src/settings/config.json', req.body, function (err) {
       if (err) console.trace(new Error(err))
-      else app.use(require('./routes'))
     })
+    app.use(require('./routes'))
   }
 })
 
