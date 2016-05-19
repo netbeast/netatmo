@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Netbeast plugin to control netatmo welcome camera",
   "main": "index.js",
+  "logo": "logo.png",
   "netbeast": {
     "bootOnLoad": false,
     "type": "plugin",
