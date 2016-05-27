@@ -2,6 +2,7 @@ var util = require('util');
 var EventEmitter = require("events").EventEmitter;
 var request = require('request');
 var moment = require('moment');
+var netbeast = require('netbeast')
 
 const BASE_URL = 'https://api.netatmo.net';
 
@@ -33,6 +34,7 @@ util.inherits(netatmo, EventEmitter);
  * @returns {Error}
  */
 netatmo.prototype.handleRequestError = function (err, response, body, message, critical) {
+  netbeast.error(message)
   var errorMessage = "";
   if (body) {
     errorMessage = JSON.parse(body);

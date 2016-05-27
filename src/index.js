@@ -41,7 +41,7 @@ app.get('/', function (req, res) {
       // res.redirect('/i/netatmo/settings')
       if (timer) clearTimeout(timer)
       timer = setTimeout(function () {
-        netbeast().info('Fill all fields and press start to run Netatmo plugin', 'Configuration needed!')
+        netbeast.info('Fill all fields and press start to run Netatmo plugin', 'Configuration needed!')
       }, 1000)
     } else {
       res.status(404).end()
@@ -52,7 +52,7 @@ app.get('/', function (req, res) {
 
 app.post('/config', function (req, res) {
   if (!(req.body.client_id.trim() && req.body.client_secret.trim() && req.body.username.trim() && req.body.password.trim())) {
-    netbeast().error('Complete all fields!')
+    netbeast.error('Complete all fields!')
     res.sendFile(__dirname + dirsettings + '/index.html')
   } else {
     fs.writeJson('./src/settings/config.json', req.body, function (err) {

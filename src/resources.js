@@ -15,7 +15,6 @@ module.exports = function (callback) {
       if (!packageObj[i]) return (new Error('Settings required, go to the plugin settings and enter the data required'))
     }
     api = new Netatmo(packageObj)
-
     var objects = []
 
     // Request to the database
@@ -39,7 +38,6 @@ module.exports = function (callback) {
       if (err) console.trace(err)
 
       data.homes[0].cameras.forEach(function (camera) {
-        devices.push(camera)
         var indx = objects.indexOf('/welcome/' + camera.id)
         if (indx >= 0) {
           objects.splice(indx, 1)
@@ -52,15 +50,16 @@ module.exports = function (callback) {
       })
     })
 
-    if (objects.length > 0) {
-      objects.forEach(function (hooks) {
-        request.del(API + '?hook=' + hooks,
-        function (err, resp, body) {
-          if (err) callback(err)
+    setTimeout(function () {
+      if (objects.length > 0) {
+        objects.forEach(function (hooks) {
+          request.del(API + '?hook=' + hooks,
+          function (err, resp, body) {
+            if (err) callback(err)
+          })
         })
-      })
-    }
+      }
+      return callback(null, devices, api)
+    }, 20000)
   })
-
-  return callback(null, devices, api)
 }
